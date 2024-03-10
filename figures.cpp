@@ -80,7 +80,6 @@ public:
     }
 };
 
-
 class Square : public Figures
 {
     double length;
@@ -92,25 +91,68 @@ public:
     {
         length = inLength;
     }
+
     void setAreaSquare()
     {
         AreaSquare = length * length;
     }
+
     double getAreaSquare()
     {
         return AreaSquare;
     }
+
     void setAreaCircumscribingRectangle()
     {
         areaRectangle = AreaSquare;
     }
+
     double getAreaCircumscribingRectangle()
     {
         return areaRectangle;
     }
+
     void setColors()
     {
         Color = Colors::YELLOW;
+    }
+};
+
+class Triangle : public Figures
+{
+    double length;
+    double areaTriangle = 0;
+    double areaRectangle = 0;
+    
+public:
+    Triangle(double& inLength)
+    {
+        length = inLength;
+    }
+
+    void setAreaTriangle()
+    {       
+        areaTriangle = (length * length * std::sqrt(3.f)) / 4;
+    }
+
+    double getAreaTriangle()
+    {
+        return areaTriangle;
+    }
+
+    void setAreaCircumscribingRectangle()
+    {
+        areaRectangle = length * length;
+    }
+
+    double getAreaCircumscribingRectangle()
+    {
+        return areaRectangle;
+    }
+
+    void setColors()
+    {
+        Color = Colors::WHITE;
     }
 };
 
@@ -120,7 +162,7 @@ int main()
     std::string command;
     std::cout << "Enter command: ";
     //std::cin >> command;
-    command = "square";
+    command = "triangle";
 
     if (command == "circle")
     {
@@ -150,7 +192,16 @@ int main()
     }
     else if (command == "triangle")
     {
-        std::cout << "triangle" << std::endl;
+        std::cout << "Enter the edge length of the equilateral triangle: ";
+        std::cin >> inLength;
+
+        Triangle* triangle = new Triangle(inLength);
+        triangle->setColors();
+        triangle->setAreaTriangle();
+        triangle->setAreaCircumscribingRectangle();
+        std::cout << "Area of a square = " << triangle->getAreaTriangle() << std::endl;
+        std::cout << "Area of a rectangle surrounding a circle = " << triangle->getAreaCircumscribingRectangle() << std::endl;
+        triangle->getColors();
     }
     else if (command == "rectangle")
     {
