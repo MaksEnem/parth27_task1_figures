@@ -10,40 +10,9 @@ public:
         NONE, WHITE, RED, BLUE, GREEN, YELLOW
     };
 
-    Colors Color = Colors::NONE;
-    std::string inColor = "none";
+    Colors Color = Colors::NONE;    
     double centerOfCoordinates;
-
-    void setColors()
-    {
-        std::cout << "Input color figures: ";
-        std::cin >> inColor;
-
-        if (inColor == "none")
-        {
-            Color = Colors::NONE;
-        }
-        else if (inColor == "white")
-        {
-            Color = Colors::WHITE;
-        }
-        else if (inColor == "red")
-        {
-           Color = Colors::RED;
-        }
-        else if (inColor == "blue")
-        {
-            Color = Colors::BLUE;
-        }
-        else if (inColor == "green")
-        {
-            Color = Colors::GREEN;
-        }
-        else if (inColor == "yellow")
-        {
-            Color = Colors::YELLOW;
-        }
-    }
+    
     void getColors()
     {
         if (Color == Colors::NONE)
@@ -73,15 +42,12 @@ public:
     }
 };
 
-
-
-
 class Circle : public Figures
 {
-private:
     double radius = 0;
     double AreaCircle = 0;
     double areaRectangle = 0;
+
 public:
     Circle(double& inLength)
     {
@@ -107,11 +73,46 @@ public:
     double getAreaCircumscribingRectangle()
     {
         return areaRectangle;
-    }       
+    }
+    void setColors()
+    {
+        Color = Colors::RED;
+    }
 };
 
 
+class Square : public Figures
+{
+    double length;
+    double AreaSquare = 0;
+    double areaRectangle = 0;
 
+public:
+    Square(double& inLength)
+    {
+        length = inLength;
+    }
+    void setAreaSquare()
+    {
+        AreaSquare = length * length;
+    }
+    double getAreaSquare()
+    {
+        return AreaSquare;
+    }
+    void setAreaCircumscribingRectangle()
+    {
+        areaRectangle = AreaSquare;
+    }
+    double getAreaCircumscribingRectangle()
+    {
+        return areaRectangle;
+    }
+    void setColors()
+    {
+        Color = Colors::YELLOW;
+    }
+};
 
 int main()
 {
@@ -119,23 +120,33 @@ int main()
     std::string command;
     std::cout << "Enter command: ";
     //std::cin >> command;
-    command = "circle";
+    command = "square";
+
     if (command == "circle")
     {
         std::cout << "Enter the radius of the circle: ";
         std::cin >> inLength;
-
-        Circle circle(inLength);
-        circle.setColors();
-        circle.setAreaCircle();
-        circle.setAreaCircumscribingRectangle();
-        std::cout << "Area of a circle = " << circle.getAreaCircle() << std::endl;
-        std::cout << "Area of a rectangle surrounding a circle = " << circle.getAreaCircumscribingRectangle() << std::endl;       
-        circle.getColors();
+       
+        Circle* circle = new Circle(inLength);
+        circle->setColors();
+        circle->setAreaCircle();
+        circle->setAreaCircumscribingRectangle();
+        std::cout << "Area of a circle = " << circle->getAreaCircle() << std::endl;
+        std::cout << "Area of a rectangle surrounding a circle = " << circle->getAreaCircumscribingRectangle() << std::endl;
+        circle->getColors();
     }
     else if (command == "square")
     {
-        std::cout << "square" << std::endl;
+        std::cout << "Enter the side length of the square: ";
+        std::cin >> inLength;
+
+        Square* square = new Square(inLength);
+        square->setColors();
+        square->setAreaSquare();
+        square->setAreaCircumscribingRectangle();
+        std::cout << "Area of a square = " << square->getAreaSquare() << std::endl;
+        std::cout << "Area of a rectangle surrounding a circle = " << square->getAreaCircumscribingRectangle() << std::endl;
+        square->getColors();
     }
     else if (command == "triangle")
     {
