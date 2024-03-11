@@ -1,7 +1,5 @@
 #include <iostream>
 
-
-
 class Figures
 {
 public:
@@ -152,17 +150,58 @@ public:
 
     void setColors()
     {
+        Color = Colors::BLUE;
+    }
+};
+
+class Rectangle : public Figures
+{
+private:
+    double length;
+    double width;
+    double areaRectangle = 0;
+    double areaRectangleCirc = 0;
+
+public:
+    Rectangle(double& inLength, double& inWidth)
+    {
+        length = inLength;
+        width = inWidth;
+    }
+
+    void setAreaRectangle()
+    {
+        areaRectangle = length * width;
+    }
+
+    double getAreaRectangle()
+    {
+        return areaRectangle;
+    }
+
+    void setAreaCircumscribingRectangle()
+    {
+        areaRectangleCirc = areaRectangle;
+    }
+
+    double getAreaCircumscribingRectangle()
+    {
+        return areaRectangleCirc;
+    }
+
+    void setColors()
+    {
         Color = Colors::WHITE;
     }
+
 };
 
 int main()
 {
-    double inLength;
+    double inLength;    
     std::string command;
-    std::cout << "Enter command: ";
-    //std::cin >> command;
-    command = "triangle";
+    std::cout << "Enter command: ";   
+    command = "rectangle";
 
     if (command == "circle")
     {
@@ -176,6 +215,9 @@ int main()
         std::cout << "Area of a circle = " << circle->getAreaCircle() << std::endl;
         std::cout << "Area of a rectangle surrounding a circle = " << circle->getAreaCircumscribingRectangle() << std::endl;
         circle->getColors();
+
+        delete circle;
+        circle = nullptr;
     }
     else if (command == "square")
     {
@@ -187,8 +229,11 @@ int main()
         square->setAreaSquare();
         square->setAreaCircumscribingRectangle();
         std::cout << "Area of a square = " << square->getAreaSquare() << std::endl;
-        std::cout << "Area of a rectangle surrounding a circle = " << square->getAreaCircumscribingRectangle() << std::endl;
+        std::cout << "Area of a rectangle surrounding a square = " << square->getAreaCircumscribingRectangle() << std::endl;
         square->getColors();
+
+        delete square;
+        square = nullptr;
     }
     else if (command == "triangle")
     {
@@ -200,12 +245,30 @@ int main()
         triangle->setAreaTriangle();
         triangle->setAreaCircumscribingRectangle();
         std::cout << "Area of a square = " << triangle->getAreaTriangle() << std::endl;
-        std::cout << "Area of a rectangle surrounding a circle = " << triangle->getAreaCircumscribingRectangle() << std::endl;
+        std::cout << "Area of a rectangle surrounding a triangle = " << triangle->getAreaCircumscribingRectangle() << std::endl;
         triangle->getColors();
+
+        delete triangle;
+        triangle = nullptr;
     }
     else if (command == "rectangle")
     {
-        std::cout << "rectangle" << std::endl;
+        double inWidth;
+        std::cout << "Enter the length of the rectangle: ";
+        std::cin >> inLength;
+        std::cout << "Enter the width of the rectangle: ";
+        std::cin >> inWidth;
+
+        Rectangle* rectangle = new Rectangle(inLength, inWidth);
+        rectangle->setColors();
+        rectangle->setAreaRectangle();
+        rectangle->setAreaCircumscribingRectangle();
+        std::cout << "Area of a rectangle = " << rectangle->getAreaRectangle() << std::endl;
+        std::cout << "Area of a rectangle surrounding a rectangle = " << rectangle->getAreaCircumscribingRectangle() << std::endl;
+        rectangle->getColors();
+
+        delete rectangle;
+        rectangle = nullptr;
     }
 
     return 0;
